@@ -15,8 +15,8 @@ import java.util.List;
 
 //Single Responsibility Principle (SOLID)
 public class UserService implements IUserService {
-    private IUserDAO userDao;
-    private UserMapper userMapper;
+    private final IUserDAO userDao;
+    private final UserMapper userMapper;
 
     //Singleton Design Pattern
     private static UserService instance;
@@ -68,7 +68,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean existById(Long id) {
+    public boolean existById(Integer id) {
         return userDao.existById(id);
     }
 
@@ -83,22 +83,32 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String getOriginalEmail(Long id) {
+    public String getOriginalEmail(Integer id) {
         return userDao.getOriginalEmail(id);
     }
 
     @Override
-    public String getOriginalMobile(Long id) {
+    public String getOriginalMobile(Integer id) {
         return userDao.getOriginalMobile(id);
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(Integer id) {
         User user = userDao.selectById(id);
         if (user == null)
             throw new NotFoundException(Constant.USER_NOT_FOUND);
 
         return user;
+    }
+
+    @Override
+    public List<User> searchUser(String keySearch) {
+        return userDao.searchUser(keySearch);
+    }
+
+    @Override
+    public List<User> findUsersById(Integer id) {
+        return userDao.selectUsersById(id);
     }
 
 }

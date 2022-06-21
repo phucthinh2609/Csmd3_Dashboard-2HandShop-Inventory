@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class User {//Single Responsibility Principle (SOLID)
-    private Long id;
+    private Integer id;
     private String fullName;
     private String mobile;
     private String email;
@@ -24,7 +24,7 @@ public class User {//Single Responsibility Principle (SOLID)
 
     List<Order> orders = new ArrayList<>();
 
-    public User(Long id, String fullName, String mobile, String email, String password, String address, Role role, Date createdAt, Date updatedAt, Date lastLogin, UserStatus status) {
+    public User(Integer id, String fullName, String mobile, String email, String password, String address, Role role, Date createdAt, Date updatedAt, Date lastLogin, UserStatus status) {
         this.id = id;
         this.fullName = fullName;
         this.mobile = mobile;
@@ -57,7 +57,7 @@ public class User {//Single Responsibility Principle (SOLID)
         this.role = role;
     }
 
-    public User(Long id, String fullName, String mobile, String email, String password, String address, Role role, UserStatus status) {
+    public User(Integer id, String fullName, String mobile, String email, String password, String address, Role role, UserStatus status) {
         this.id = id;
         this.fullName = fullName;
         this.mobile = mobile;
@@ -68,18 +68,28 @@ public class User {//Single Responsibility Principle (SOLID)
         this.status = status;
     }
 
+    public User(Integer id, String fullName, String mobile, String email, String address, Role role, UserStatus status) {
+        this.id = id;
+        this.fullName = fullName;
+        this.mobile = mobile;
+        this.email = email;
+        this.address = address;
+        this.role = role;
+        this.status = status;
+    }
 
-    public Long getId() {
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @NotEmpty (message = "Full Name must not be empty")
-    @Pattern(regexp = "(^[A-Za-z]{3,16})([ ]{0,1})([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})",
-            message = "Full name needs to capitalize the first letter. Ex: 'Johny Dang'")
+    @Pattern(regexp = "^([A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶ\" + \"ẸẺẼỀỀỂỄỆẾỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪ\" + \"ỬỮỰỲỴÝỶỸ]{1}[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ\" + \"ẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ\" + \"ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\\\s]{1,}){2,}$",
+            message = "Full name needs to capitalize the first letter. And must contains two or more words. Ex: 'Mai Thịnh'")
     public String getFullName() {
         return fullName;
     }

@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 public class Order {
-    private Long id;
-    private Long userId;
+    private Integer id;
+    private Integer userId;
     private OrderType orderType;
     private OrderStatus status;
     private BigDecimal grandTotal;
@@ -20,31 +20,31 @@ public class Order {
     }
 
 
-    public Order(Long id, OrderType orderType) {
+    public Order(Integer id, OrderType orderType) {
         this.id = id;
         this.orderType = orderType;
     }
 
-    public Order(Long id, Long userId, OrderType type, OrderStatus status) {
+    public Order(Integer id, Integer userId, OrderType type, OrderStatus status) {
         this.id = id;
         this.userId = userId;
         this.orderType = type;
         this.status = status;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

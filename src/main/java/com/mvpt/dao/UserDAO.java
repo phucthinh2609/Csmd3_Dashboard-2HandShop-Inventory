@@ -57,6 +57,8 @@ public class UserDAO implements IUserDAO {
 
     private static final String SP_SELECT_USER_BY_ID = "{CALL sp_select_user_by_id(?)}";
 
+    private static final String SEARCH_USER = "{CALL sp_search_user(?)}";
+
     private static final String USER_ORIGIN_EMAIL = "" +
             "SELECT u.email " +
             "FROM users AS u " +
@@ -80,7 +82,7 @@ public class UserDAO implements IUserDAO {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                Long id = rs.getLong("id");
+                Integer id = rs.getInt("id");
                 String fullName = rs.getString("full_name");
                 String mobile = rs.getString("mobile");
                 String email = rs.getString("email");
@@ -134,7 +136,7 @@ public class UserDAO implements IUserDAO {
                 Connection conn = getConnection();
                 CallableStatement statement = conn.prepareCall(SP_UPDATE_USER)
         ) {
-            statement.setLong(1, newUser.getId());
+            statement.setInt(1, newUser.getId());
             statement.setString(2, newUser.getFullName());
             statement.setString(3, newUser.getMobile());
             statement.setString(4, newUser.getEmail());
@@ -151,14 +153,14 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public User selectById(Long id) {
+    public User selectById(Integer id) {
         User user = null;
 
         try (
                 Connection conn = getConnection();
                 CallableStatement statement = conn.prepareCall(SP_SELECT_USER_BY_ID);
         ) {
-            statement.setLong(1, id);
+            statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
@@ -235,19 +237,19 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public boolean existById(Long id) {
+    public boolean existById(Integer id) {
         return selectById(id) != null;
     }
 
     @Override
-    public String getOriginalEmail(Long id) {
+    public String getOriginalEmail(Integer id) {
         String originalEmail = null;
 
         try {
             Connection conn = MySQLConnUtils.getConnection();
             PreparedStatement statement = conn.prepareStatement(USER_ORIGIN_EMAIL);
 
-            statement.setLong(1, id);
+            statement.setInt(1, id);
 
             ResultSet rs = statement.executeQuery();
 
@@ -262,14 +264,14 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public String getOriginalMobile(Long id) {
+    public String getOriginalMobile(Integer id) {
         String originalMobile = null;
 
         try {
             Connection conn = MySQLConnUtils.getConnection();
             PreparedStatement statement = conn.prepareStatement(USER_ORIGIN_MOBILE);
 
-            statement.setLong(1, id);
+            statement.setInt(1, id);
 
             ResultSet rs = statement.executeQuery();
 
@@ -281,6 +283,70 @@ public class UserDAO implements IUserDAO {
         }
 
         return originalMobile;
+    }
+
+    @Override
+    public List<User> searchUser(String keySearch) {
+        List<User> userList = new ArrayList<>();
+
+        try {
+            Connection connection = MySQLConnUtils.getConnection();
+
+
+            CallableStatement statement = connection.prepareCall(SEARCH_USER);
+            statement.setString(1, '%' + keySearch + '%');
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Integer id = rs.getInt("id");
+                String fullName = rs.getString("full_name");
+                String mobile = rs.getString("mobile");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                Role role = Role.parseRole(rs.getString("role"));
+                UserStatus status = UserStatus.parseUserStatus(rs.getString("status"));
+
+                userList.add(new User(id, fullName, mobile, email, address, role, status));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userList;
+    }
+
+    @Override
+    public List<User> selectUsersById(Integer id) {
+        List<User> users = new ArrayList<>();
+
+        try (
+                Connection conn = getConnection();
+                CallableStatement statement = conn.prepareCall(SP_SELECT_USER_BY_ID);
+        ) {
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                String fullName = rs.getString("full_name");
+                String mobile = rs.getString("mobile");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String address = rs.getString("address");
+                Role role = Role.parseRole(rs.getString("role"));
+                Date createdAt = rs.getDate("created_at");
+                Date updatedAt = rs.getDate("updated_at");
+                Date lastLogin = rs.getDate("last_login");
+                UserStatus status = UserStatus.parseUserStatus(rs.getString("status"));
+
+                users.add(new User(id, fullName, mobile, email, password, address, role, createdAt, updatedAt, lastLogin, status)) ;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return users;
     }
 
 

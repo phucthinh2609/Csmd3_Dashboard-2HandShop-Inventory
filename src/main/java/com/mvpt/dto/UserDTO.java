@@ -1,11 +1,12 @@
 package com.mvpt.dto;
 
 import com.mvpt.model.Role;
+import com.mvpt.model.UserStatus;
 
 import java.util.Date;
 
 public class UserDTO {
-    private Long id;
+    private Integer id;
     private String fullName;
     private String mobile;
     private String email;
@@ -21,26 +22,25 @@ public class UserDTO {
 
     }
 
-//
-//    public UserDTO(Long id, String fullName, String mobile, String email, String password, String address, String role, Date createdAt, Date updatedAt, Date lastLogin) {
-//        this.id = id;
-//        this.fullName = fullName;
-//        this.mobile = mobile;
-//        this.email = email;
-//        this.password = password;
-//        this.address = address;
-//        this.role = role;
-//        this.createdAt = createdAt;
-//        this.updatedAt = updatedAt;
-//        this.lastLogin = lastLogin;
-//    }
+    public UserDTO(Integer id, String fullName, String mobile, String email, String password, String address, String role, Date createdAt, Date updatedAt, Date lastLogin, String status) {
+        this.id = id;
+        this.fullName = fullName;
+        this.mobile = mobile;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.role = role;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.lastLogin = lastLogin;
+        this.status = status;
+    }
 
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -122,22 +122,5 @@ public class UserDTO {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
-                ", role='" + role + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", lastLogin=" + lastLogin +
-                ", status='" + status + '\'' +
-                '}';
     }
 }

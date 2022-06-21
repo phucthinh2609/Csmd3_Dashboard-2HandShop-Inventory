@@ -72,7 +72,7 @@ public class OrderService implements IOrderService {
 //
 //                    grandTotal += (quantity * orderItem.getPrice());
 //
-//                    Long itemId = orderItem.getItemId();
+//                    Integer itemId = orderItem.getItemId();
 //                    if (itemId == null) {
 //                        Item item = orderItem.getItem();
 //                        item.setId(itemId = System.currentTimeMillis());
@@ -116,7 +116,7 @@ public class OrderService implements IOrderService {
 ////                    Item item = orderItem.getItem();
 //                    int sold = orderItem.getQuantity();
 //                    grandTotal += (quantity * orderItem.getPrice());
-//                    Long itemId = orderItem.getItemId();
+//                    Integer itemId = orderItem.getItemId();
 ////                    if (itemId == null) {
 ////                        item.setId(itemId = System.currentTimeMillis());
 ////                        orderItem.setItemId(itemId);
@@ -143,7 +143,7 @@ public class OrderService implements IOrderService {
 //
 //    @Override
 //    public Order createNewOrder(OrderType type) {
-//        Long id = System.currentTimeMillis() / 1000;
+//        Integer id = System.currentTimeMillis() / 1000;
 //        OrderStatus status = inputOrderStatus(type);
 //        Order order = new Order(id, userService.getCurrentUser().getId(), type, OrderStatus.NEW);
 //        add(order);
@@ -207,7 +207,7 @@ public class OrderService implements IOrderService {
 //    }
 //
 //    @Override
-//    public Order findById(Long id) {
+//    public Order findById(Integer id) {
 //        List<Order> orders = findAll();
 //        for (Order order : orders) {
 //            if (order.getId().equals(id))
@@ -217,7 +217,7 @@ public class OrderService implements IOrderService {
 //    }
 //
 //    @Override
-//    public List<Order> findByUserId(Long userId) {
+//    public List<Order> findByUserId(Integer userId) {
 //        List<Order> newOrders = new ArrayList<>();
 //        for (Order order : findAll()) {
 //            if (order.getId().equals(userId))
@@ -227,12 +227,12 @@ public class OrderService implements IOrderService {
 //    }
 //
 //    @Override
-//    public boolean existById(Long id) {
+//    public boolean existById(Integer id) {
 //        return findById(id) != null;
 //    }
 //
 //    @Override
-//    public void deleteById(Long id) {
+//    public void deleteById(Integer id) {
 //        List<Order> orders = findAll();
 //
 //        //class vo danh

@@ -32,7 +32,7 @@ public class OrderItemService implements IOrderItemService {
 //    }
 //
 //    @Override
-//    public OrderItem findById(Long id) {
+//    public OrderItem findById(Integer id) {
 //        List<OrderItem> orders = findAll();
 //        for (OrderItem orderItem : orders) {
 //            if (orderItem.getId().equals(id))
@@ -58,7 +58,7 @@ public class OrderItemService implements IOrderItemService {
 //    }
 //
 //    @Override
-//    public OrderItem getOrderItemById(Long id) {
+//    public OrderItem getOrderItemById(Integer id) {
 //        List<OrderItem> orderItems = findAll();
 //        for (OrderItem orderItem : orderItems) {
 //            if (orderItem.getId().equals(id))
@@ -68,7 +68,7 @@ public class OrderItemService implements IOrderItemService {
 //    }
 //
 //    @Override
-//    public List<OrderItem> findByOrderId(Long orderId) {
+//    public List<OrderItem> findByOrderId(Integer orderId) {
 //        List<OrderItem> newOrderItems = new ArrayList<>();
 //        for (OrderItem orderItem : findAll()) {
 //            if (orderItem.getOrderId().equals(orderId))

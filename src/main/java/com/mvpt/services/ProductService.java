@@ -1,150 +1,110 @@
-package com.mvpt.services;
-
-
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-
-public class ProductService implements IProductService {
-    public final static String PATH = "data/products.csv";
-
-    //Singleton Design Pattern
-    private static ProductService instance;
-
-    private ProductService() {
-    }
-
-    public static ProductService getInstance() {
-        if (instance == null)
-            instance = new ProductService();
-        return instance;
-    }
-
+//package com.mvpt.services;
+//
+//
+//import com.mvpt.Constant;
+//import com.mvpt.dao.IProductDAO;
+//import com.mvpt.dao.IUserDAO;
+//import com.mvpt.dao.ProductDAO;
+//import com.mvpt.exceptions.NotFoundException;
+//import com.mvpt.model.Role;
+//import com.mvpt.model.User;
+//
+//import java.util.ArrayList;
+//import java.util.Date;
+//import java.util.List;
+//
+//public class ProductService implements IProductService {
+//    private final IProductDAO productDAO;
+//
+//    //Singleton Design Pattern
+//    private static ProductService instance;
+//
+//    private ProductService() {
+//        productDAO = ProductDAO.getInstance();
+//    }
+//
+//    public static ProductService getInstance() {
+//        if (instance == null)
+//            instance = new ProductService();
+//        return instance;
+//    }
+//
 //    @Override
 //    public List<Product> findAll() {
+//        //return userDao.selectAll().stream().map(userMapper::toDTO).collect(Collectors.toList());
 //        List<Product> products = new ArrayList<>();
-//        List<String> records = CSVUtils.read(PATH);
-//        for (String record : records) {
-//            products.add(Product.parse(record));
+//        for (Product product : productDAO.selectAll()) {
+//            products.add(product);
 //        }
 //        return products;
 //    }
 //
 //    @Override
+//    public Product adminLogin(String username, String password) {
+//        User user = userDao.login(username, password, Role.ADMIN);
+//        if (user == null)
+//            throw new NotFoundException(Constant.USER_NOT_FOUND);
+//        return userMapper.toDTO(user);
+//    }
+//
+////    public void logout() {
+////        currentUser = null;
+////    }
+//
+//    @Override
 //    public void add(Product newProduct) {
-//        List<Product> products = findAll();
-//        newProduct.setCreatedAt(Instant.now());
-//        products.add(newProduct);
-//        CSVUtils.write(PATH, products);
+//        newProduct.setCreatedAt(new Date());
+//        userDao.insert(newProduct);
 //    }
 //
 //    @Override
-//    public void update(Product newProduct) {
-//        List<Product> products = findAll();
-//        for (Product product : products) {
-//            if (product.getId().equals(newProduct.getId())) {
-//                String title = newProduct.getTitle();
-//                if (title != null && !title.isEmpty())
-//                    product.setTitle(newProduct.getTitle());
-//
-////                Integer quantity = product.getQuantity();
-////                if (quantity != null)
-////                    product.setQuantity(quantity);
-////
-////                Double price = newProduct.getPrice();
-////                if (price != null)
-////                    product.setPrice(price);
-////
-//                String content = newProduct.getContent();
-//                if (content != null && !content.isEmpty())
-//                    product.setContent(content);
-//
-//                product.setUpdatedAt(Instant.now());
-//                CSVUtils.write(PATH, products);
-//                break;
-//            }
-//        }
-//
+//    public void update(Product newUser) {
+//        newUser.setUpdatedAt(new Date());
+//        userDao.update(newUser);
 //    }
 //
 //    @Override
-//    public Product findById(Long id) {
-//        List<Product> products = findAll();
-//        for (Product product : products) {
-//            if (product.getId().equals(id))
-//                return product;
-//        }
-//        return null;
+//    public boolean existById(Integer id) {
+//        return userDao.existById(id);
 //    }
 //
 //    @Override
-//    public boolean exist(Long id) {
-//        return findById(id) != null;
+//    public boolean existsByEmail(String email) {
+//        return userDao.existsByEmail(email);
 //    }
 //
 //    @Override
-//    public boolean existByName(String name) {
-//        List<Product> products = findAll();
-//        for (Product product : products) {
-//            if (product.getTitle().equals(name)) return true;
-//        }
-//        return false;
+//    public boolean existsByMobile(String phone) {
+//        return userDao.existsByPhone(phone);
 //    }
 //
 //    @Override
-//    public boolean existsById(Long id) {
-//        List<Product> products = findAll();
-//        for (Product product : products) {
-//            if (product.getId().equals(id))
-//                return true;
-//        }
-//        return false;
+//    public String getOriginalEmail(Integer id) {
+//        return userDao.getOriginalEmail(id);
 //    }
 //
 //    @Override
-//    public void deleteById(Long id) {
-//        List<Product> products = findAll();
-//
-//        //class vo danh
-//        products.removeIf(new Predicate<Product>() {
-//            @Override
-//            public boolean test(Product product) {
-//                return product.getId().equals(id);
-//            }
-//        });
-//        CSVUtils.write(PATH, products);
+//    public String getOriginalMobile(Integer id) {
+//        return userDao.getOriginalMobile(id);
 //    }
 //
 //    @Override
-//    public List<Product> findAllOrderByPriceASC() {
-////        List<Product> products = new ArrayList<>(findAll());
-////        products.sort(new Comparator<Product>() {
-////            @Override
-////            public int compare(Product o1, Product o2) {
-////                double result = o1.getPrice() - o2.getPrice();
-////                if (result == 0)
-////                    return 0;
-////                return result > 0 ? 1 : -1;
-////            }
-////        });
+//    public User findById(Integer id) {
+//        User user = userDao.selectById(id);
+//        if (user == null)
+//            throw new NotFoundException(Constant.USER_NOT_FOUND);
 //
-//        return new ArrayList<>();
+//        return user;
 //    }
 //
 //    @Override
-//    public List<Product> findAllOrderByPriceDESC() {
-////        List<Product> products = new ArrayList<>(findAll());
-////        products.sort(new Comparator<Product>() {
-////            @Override
-////            public int compare(Product o1, Product o2) {
-////                double result = o2.getPrice() - o1.getPrice();
-////                if (result == 0)
-////                    return 0;
-////                return result > 0 ? 1 : -1;
-////            }
-////        });
-//
-//        return new ArrayList<>();
+//    public List<User> searchUser(String keySearch) {
+//        return userDao.searchUser(keySearch);
 //    }
-}
+//
+//    @Override
+//    public List<User> findUsersById(Integer id) {
+//        return userDao.selectUsersById(id);
+//    }
+//
+//}

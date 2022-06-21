@@ -15,17 +15,19 @@ public interface IUserService {
 
     void update(UserDTO newUser);
 
-    boolean existById(Long id);
+    boolean existById(Integer id);
 
     boolean existsByEmail(String email);
 
     boolean existsByMobile(String phone);
 
-    String getOriginalEmail(Long id);
+    String getOriginalEmail(Integer id);
 
-    String getOriginalMobile(Long id);
+    String getOriginalMobile(Integer id);
 
-    User findById(Long id);
+    User findById(Integer id);
 
+    List<User> searchUser(String keySearch);
 
+    List<User> findUsersById(Integer id);
 }

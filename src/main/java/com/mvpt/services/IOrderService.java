@@ -9,8 +9,8 @@ public interface IOrderService {
 
     //void update(Order newOrder);
 
-    //    private Long id;
-//    private Long userId;
+    //    private Integer id;
+//    private Integer userId;
 //    private OrderType orderType;
 //    private OrderStatus status;
 //    private Double grandTotal;
@@ -40,13 +40,13 @@ public interface IOrderService {
 //
 //    Order createNewOrder(OrderType type);
 //
-//    Order findById(Long id);
+//    Order findById(Integer id);
 //
-//    List<Order> findByUserId(Long id);
+//    List<Order> findByUserId(Integer id);
 //
-//    boolean existById(Long id);
+//    boolean existById(Integer id);
 //
-//    void deleteById(Long id);
+//    void deleteById(Integer id);
 //
 //    void salesStock(Order order);
 }

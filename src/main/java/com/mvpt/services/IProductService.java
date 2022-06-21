@@ -1,26 +1,8 @@
-package com.mvpt.services;
-
-
-import java.util.List;
-
-public interface IProductService {
-//    List<Product> findAll();
+//package com.mvpt.services;
 //
-//    void add(Product newProduct);
 //
-//    void update(Product newProduct);
+//import java.util.List;
 //
-//    Product findById(Long id);
-
-//    boolean exist(Long id);
+//public interface IProductService {
 //
-//    boolean existByName(String name);
-//
-//    boolean existsById(Long id);
-//
-//    void deleteById(Long id);
-
-//    List<Product> findAllOrderByPriceASC();
-//
-//    List<Product> findAllOrderByPriceDESC();
-}
+//}

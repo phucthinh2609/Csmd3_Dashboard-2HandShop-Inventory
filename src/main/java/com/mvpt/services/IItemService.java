@@ -11,17 +11,17 @@ public interface IItemService {
 //
 //    void update(Item newItem);
 //
-//    void increaseItemAvailable(Long itemId, int quantity);
+//    void increaseItemAvailable(Integer itemId, int quantity);
 //
-//    void updateItemPrice(Long itemId, double price);
+//    void updateItemPrice(Integer itemId, double price);
 //
-//    Item findById(Long id);
+//    Item findById(Integer id);
 //
-//    List<Item> findProductById(Long id);
+//    List<Item> findProductById(Integer id);
 //
-//    boolean existsById(Long id);
+//    boolean existsById(Integer id);
 //
-//    void deleteById(Long id);
+//    void deleteById(Integer id);
 //
-//    void updateItemSold(Long itemId, int sold);
+//    void updateItemSold(Integer itemId, int sold);
 }

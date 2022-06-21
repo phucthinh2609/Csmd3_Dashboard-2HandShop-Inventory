@@ -1,8 +1,6 @@
 package com.mvpt.dto;
 
-import com.mvpt.dao.UserDAO;
 import com.mvpt.model.User;
-import com.mvpt.services.UserService;
 
 public class UserMapper {
     private static UserMapper instance;
@@ -29,6 +27,7 @@ public class UserMapper {
         userDTO.setUpdatedAt(user.getUpdatedAt());
         userDTO.setLastLogin(user.getLastLogin());
         userDTO.setStatus(user.getStatus().getValue());
+
         return userDTO;
     }
 }

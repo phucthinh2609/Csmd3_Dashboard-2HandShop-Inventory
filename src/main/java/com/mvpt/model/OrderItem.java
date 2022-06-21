@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class OrderItem {
-    private Long id;
-    private Long productId;
-    private Long itemId;
-    private Long orderId;
+    private Integer id;
+    private Integer productId;
+    private Integer itemId;
+    private Integer orderId;
     private BigDecimal price;
     private int quantity;
     private Date createdAt;
@@ -19,7 +19,7 @@ public class OrderItem {
     private Order order;
 
 
-    public OrderItem(Long id, Long productId, Long itemId, Long orderId, BigDecimal price, int quantity, String content) {
+    public OrderItem(Integer id, Integer productId, Integer itemId, Integer orderId, BigDecimal price, int quantity, String content) {
         this.id = id;
         this.productId = productId;
         this.itemId = itemId;
@@ -33,7 +33,7 @@ public class OrderItem {
 
     }
 
-    public OrderItem(long id, Long productId, Long itemId, Long orderId, int quantity) {
+    public OrderItem(Integer id, Integer productId, Integer itemId, Integer orderId, int quantity) {
         this.id = id;
         this.productId = productId;
         this.itemId = itemId;
@@ -41,35 +41,35 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
-    public Long getItemId() {
+    public Integer getItemId() {
         return itemId;
     }
 
-    public void setItemId(Long itemId) {
+    public void setItemId(Integer itemId) {
         this.itemId = itemId;
     }
 
-    public Long getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 

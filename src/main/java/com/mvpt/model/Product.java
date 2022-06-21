@@ -1,40 +1,43 @@
 package com.mvpt.model;
 
-import java.net.URL;
 import java.util.Date;
 
 public class Product {
-    private Long id;
+    private Integer id;
     private String title;
-    private URL image;
+    private String image;
     private Date createdAt;
+    private Integer createdBy;
     private Date updatedAt;
+    private Integer updatedBy;
     private String content;
+
 
     public Product() {
     }
 
-    public Product(Long id, String title, Date createdAt, Date updatedAt, String content) {
+    public Product(Integer id, String title, String image, Date createdAt, Integer createdBy, Date updatedAt, Integer updatedBy, String content) {
         this.id = id;
         this.title = title;
-
+        this.image = image;
         this.createdAt = createdAt;
+        this.createdBy = createdBy;
         this.updatedAt = updatedAt;
+        this.updatedBy = updatedBy;
         this.content = content;
     }
 
-    public Product(Long id, String title, String content) {
-        this.id = id;
+    public Product(String title, String image, String content) {
         this.title = title;
+        this.image = image;
         this.content = content;
     }
 
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,12 +49,28 @@ public class Product {
         this.title = title;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Integer getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Integer createdBy) {
+        this.createdBy = createdBy;
     }
 
     public Date getUpdatedAt() {
@@ -62,23 +81,20 @@ public class Product {
         this.updatedAt = updatedAt;
     }
 
+    public Integer getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(Integer updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s,%s,%s,%s,%s",
-                id,
-                title,
-                createdAt,
-                updatedAt,
-                content
-        );
     }
 }
 

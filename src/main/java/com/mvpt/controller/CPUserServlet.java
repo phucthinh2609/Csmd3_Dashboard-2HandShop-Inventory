@@ -145,7 +145,7 @@ public class CPUserServlet extends HttpServlet {
         RequestDispatcher dispatcher = req.getRequestDispatcher("/cp/user/edit.jsp");
 
         try {
-            Long id = Long.parseLong(req.getParameter("id"));
+            Integer id = Integer.parseInt(req.getParameter("id"));
             String fullName = req.getParameter("fullName").trim();
             String mobile = req.getParameter("mobile").trim();
             String email = req.getParameter("email").trim();
@@ -173,11 +173,11 @@ public class CPUserServlet extends HttpServlet {
 
 
             if (isExistsByEmail) {
-                if(!originalEmail.equals(email))
+                if (!originalEmail.equals(email))
                     errors.add("Email exists");
             }
             if (isexistsByMobile) {
-                if(!originalMobile.equals(mobile))
+                if (!originalMobile.equals(mobile))
                     errors.add("Mobile exists");
             }
 
@@ -202,7 +202,7 @@ public class CPUserServlet extends HttpServlet {
             errors.add("Role or Status invalid");
             ex.printStackTrace();
 
-            user = userService.findById(Long.parseLong(req.getParameter("id")));
+            user = userService.findById(Integer.parseInt(req.getParameter("id")));
             req.setAttribute("user", user);
 
             req.setAttribute("success", false);
@@ -216,8 +216,22 @@ public class CPUserServlet extends HttpServlet {
 
     private void listUsers(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("cp/user/list.jsp");
-        List<UserDTO> users = userService.findAll();
-        req.setAttribute("users", users);
+        String search = "";
+        List<User> users = new ArrayList<>();
+        List<UserDTO> userDTOs = new ArrayList<>();
+
+
+        if(req.getParameter("search")!=null){
+            search = req.getParameter("search");
+        }
+
+        if (!search.isEmpty()) {
+            users = userService.searchUser(search);
+            req.setAttribute("users", users);
+        }else {
+            userDTOs = userService.findAll();
+            req.setAttribute("users", userDTOs);
+        }
         dispatcher.forward(req, resp);
     }
 
@@ -228,10 +242,29 @@ public class CPUserServlet extends HttpServlet {
 
     private void showEditUserForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("cp/user/edit.jsp");
-        User user = userService.findById(Long.parseLong(req.getParameter("id")));
-        req.setAttribute("user", user);
-        dispatcher.forward(req, resp);
+        List<String> errors = new ArrayList<>();
+
+        try {
+            List<User> users = userService.findUsersById(Integer.parseInt(req.getParameter("id")));
+            if (users.isEmpty()){
+                errors.add("Id invalid");
+                req.setAttribute("success", false);
+                req.setAttribute("errors", errors);
+                dispatcher.forward(req, resp);
+            }else {
+                User user = userService.findById(Integer.parseInt(req.getParameter("id")));
+                req.setAttribute("user", user);
+                dispatcher.forward(req, resp);
+            }
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+            errors.add("Id dont match format");
+            req.setAttribute("success", false);
+            req.setAttribute("errors", errors);
+            dispatcher.forward(req, resp);
+        }
     }
+
 
 
 }

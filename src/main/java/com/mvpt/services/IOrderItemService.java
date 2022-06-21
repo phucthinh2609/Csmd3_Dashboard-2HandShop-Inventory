@@ -8,13 +8,13 @@ public interface IOrderItemService {
 //
 //    List<OrderItem> findAll();
 //
-//    OrderItem findById(Long id);
+//    OrderItem findById(Integer id);
 //
 //    void add(OrderItem newOrderItem);
 //
 //    void update(OrderItem newOrderItem);
 //
-//    OrderItem getOrderItemById(Long id);
+//    OrderItem getOrderItemById(Integer id);
 //
-//    List<OrderItem> findByOrderId(Long orderId);
+//    List<OrderItem> findByOrderId(Integer orderId);
 }

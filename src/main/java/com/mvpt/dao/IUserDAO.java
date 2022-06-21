@@ -15,15 +15,19 @@ public interface IUserDAO {
 
     void update(UserDTO newUser);
 
-    User selectById(Long id);
+    User selectById(Integer id);
 
     boolean existsByEmail(String email);
 
     boolean existsByPhone(String phone);
 
-    boolean existById(Long id);
+    boolean existById(Integer id);
 
-    String getOriginalEmail(Long id);
+    String getOriginalEmail(Integer id);
 
-    String getOriginalMobile(Long id);
+    String getOriginalMobile(Integer id);
+
+    List<User> searchUser(String keySearch);
+
+    List<User> selectUsersById(Integer id);
 }

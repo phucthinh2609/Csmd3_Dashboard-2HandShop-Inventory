@@ -1,24 +1,24 @@
 package com.mvpt.model;
 
 public class Category {
-    private Long id;
+    private Integer id;
     private String title;
     private String content;
 
     public Category() {
     }
 
-    public Category(Long id, String title, String content) {
+    public Category(Integer id, String title, String content) {
         this.id = id;
         this.title = title;
         this.content = content;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

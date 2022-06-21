@@ -76,7 +76,7 @@ public class ItemService implements IItemService {
 //    }
 
 //    @Override
-//    public void increaseItemAvailable(Long itemId, int quantity) {
+//    public void increaseItemAvailable(Integer itemId, int quantity) {
 //        Item item = findById(itemId);
 //        item.setAvailable(item.getAvailable() + quantity);
 //        item.setQuantity(item.getQuantity() + quantity);
@@ -84,7 +84,7 @@ public class ItemService implements IItemService {
 //    }
 //
 //    @Override
-//    public void updateItemPrice(Long itemId, double price) {
+//    public void updateItemPrice(Integer itemId, double price) {
 //        Item item = findById(itemId);
 //        if (item.getPrice() != price)
 //            item.setPrice(price);
@@ -92,7 +92,7 @@ public class ItemService implements IItemService {
 //    }
 //
 //    @Override
-//    public Item findById(Long id) {
+//    public Item findById(Integer id) {
 //        List<Item> items = findAll();
 //        for (Item item : items) {
 //            if (item.getId().equals(id))
@@ -102,7 +102,7 @@ public class ItemService implements IItemService {
 //    }
 //
 //    @Override
-//    public List<Item> findProductById(Long productId) {
+//    public List<Item> findProductById(Integer productId) {
 //        List<Item> items = findAll();
 //        List<Item> newItems = new ArrayList<>();
 //        for (Item item : items) {
@@ -115,17 +115,17 @@ public class ItemService implements IItemService {
 //    }
 //
 //    @Override
-//    public boolean existsById(Long id) {
+//    public boolean existsById(Integer id) {
 //        return findById(id) != null;
 //    }
 //
 //    @Override
-//    public void deleteById(Long id) {
+//    public void deleteById(Integer id) {
 //
 //    }
 //
 //    @Override
-//    public void updateItemSold(Long itemId, int sold) {
+//    public void updateItemSold(Integer itemId, int sold) {
 //        Item item = findById(itemId);
 ////        if(item==null)
 //           // throw new NotFoundException("")

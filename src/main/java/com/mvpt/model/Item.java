@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Item {
-    private Long id;
-    private Long productId;
-    private Long orderId;
+    private Integer id;
+    private Integer productId;
+    private Integer orderId;
     private String sku;
     private BigDecimal price;
     private int quantity;
@@ -15,33 +15,33 @@ public class Item {
     private int defective;
     private Date createdAt;
     private Date updatedAt;
-    private Long createdBy;
-    private Long updatedBy;
+    private Integer createdBy;
+    private Integer updatedBy;
 
     private Order order;
     private Product product;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
-    public Long getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
@@ -109,19 +109,19 @@ public class Item {
         this.updatedAt = updatedAt;
     }
 
-    public Long getCreatedBy() {
+    public Integer getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Long createdBy) {
+    public void setCreatedBy(Integer createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Long getUpdatedBy() {
+    public Integer getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(Long updatedBy) {
+    public void setUpdatedBy(Integer updatedBy) {
         this.updatedBy = updatedBy;
     }
 
