@@ -3,6 +3,7 @@ package com.mvpt.controller;
 import com.mvpt.services.IUserService;
 import com.mvpt.services.UserService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,9 +17,30 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        //userService.adminLogin(username, password);
+        resp.setContentType("text/html/charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/cp/login/login.jsp");
+        dispatcher.forward(req, resp);
+
+//
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html/charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
+        try {
+            String username = req.getParameter("username");
+            String password = req.getParameter("password");
+            userService.adminLogin(username, password);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            ex.getMessage();
+        }
         resp.sendRedirect("/cp");
     }
 }

@@ -1,33 +1,22 @@
-//package com.mvpt.dao;
-//
-//import com.mvpt.dto.UserDTO;
-//import com.mvpt.model.Role;
-//import com.mvpt.model.User;
-//
-//import java.util.List;
-//
-//public interface IProductDAO {
-//    List<UserDTO> selectAll();
-//
-//    Product login(String username, String password, Role role);
-//
-//    void insert(Product newUser);
-//
-//    void update(Product newUser);
-//
-//    User selectById(Integer id);
-//
-//    boolean existsByEmail(String email);
-//
-//    boolean existsByPhone(String phone);
-//
-//    boolean existById(Integer id);
-//
-//    String getOriginalEmail(Integer id);
-//
-//    String getOriginalMobile(Integer id);
-//
-//    List<User> searchUser(String keySearch);
-//
-//    List<User> selectUsersById(Integer id);
-//}
+package com.mvpt.dao;
+
+import com.mvpt.dto.ProductDTO;
+import com.mvpt.model.Product;
+
+import java.util.List;
+
+public interface IProductDAO {
+    List<ProductDTO> selectAll();
+
+    void insert(Product newProduct);
+
+    void update(Product newProduct);
+
+    ProductDTO selectById(Integer id);
+
+    boolean existById(Integer id);
+
+    List<ProductDTO> searchProduct(String keySearch);
+
+    List<ProductDTO> selectProductsById(Integer id);
+}

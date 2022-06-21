@@ -3,7 +3,7 @@ CREATE TABLE users(
       full_name NVARCHAR(150),
       mobile VARCHAR(20) UNIQUE,
       email VARCHAR(50) UNIQUE,
-      `passwsp_user_exists_by_emailord` VARCHAR(32) NOT NULL,
+      `password` VARCHAR(32) NOT NULL,
       address NVARCHAR(150),
       `role` VARCHAR(40) NULL DEFAULT 'USER',
       created_at DATETIME NOT NULL,

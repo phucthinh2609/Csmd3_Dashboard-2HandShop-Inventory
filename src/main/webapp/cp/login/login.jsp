@@ -19,11 +19,11 @@
         <header>Login Form</header>
         <form>
             <div class="input-field">
-                <input type="text" required>
+                <input type="text" name="username" required>
                 <label>Email or Username</label>
             </div>
             <div class="input-field">
-                <input class="pswrd" type="password" required>
+                <input class="pswrd" type="password" name="password" required>
                 <span class="show">SHOW</span>
                 <label>Password</label>
             </div>
