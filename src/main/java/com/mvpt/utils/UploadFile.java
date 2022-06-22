@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class UploadFile {
-    public final static String URL_IMAGE = "/Users/macbookair/Desktop/image/";
+//    public final static String URL_IMAGE = "/Users/macbookair/Desktop/image/";
+    public final static String URL_IMAGE = "/Users/macbookair/Desktop/Codegym/Module3/CS3/Cs3-2HandShop-Inventory/src/main/webapp/assets/images/products/";
+
 
     //. (png)
     private static String getExtension(Part part) {

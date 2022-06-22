@@ -97,7 +97,7 @@
                                     <h5 class="card-title mb-3">Product Images</h5>
 
                                     <div class="fallback mb-5">
-                                        <input name="file" id="file" type="file" multiple="" value="${product.getImage()}">
+                                        <input name="file" id="file" type="file" multiple="" accept="products/*">
                                     </div>
 
                                     <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Save

@@ -130,7 +130,7 @@
                                                     <h5 class="font-size-14 mb-1"><a href="/products?action=edit&id=${product.getId()}" class="text-dark">${product.getTitle()}</a>
                                                     </h5>
                                                 </td>
-                                                <td><img src="/images/${product.getImage()}" width="50px" height="50px"
+                                                <td><img src="/products/${product.getImage()}" width="50px" height="50px"
                                                           alt=""></td>
                                                 <td>${product.getCreatedAt()}</td>
                                                 <td>${product.getCreatedBy()}</td>

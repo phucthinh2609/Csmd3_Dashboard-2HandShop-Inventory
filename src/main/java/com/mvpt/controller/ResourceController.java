@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
-@WebServlet(urlPatterns = "/images/*")
+@WebServlet(urlPatterns = "/products/*")
 public class ResourceController extends HttpServlet {
 
     @Override
