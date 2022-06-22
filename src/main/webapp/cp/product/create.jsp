@@ -98,7 +98,7 @@
 
 
                                     <div class="fallback mb-5">
-                                        <input name="file" id="file" type="file" multiple="">
+                                        <input name="file" id="file" type="file" multiple="" accept="image/*">
                                     </div>
 
                                     <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Save

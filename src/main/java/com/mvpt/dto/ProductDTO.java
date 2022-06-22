@@ -1,5 +1,7 @@
 package com.mvpt.dto;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class ProductDTO {
@@ -50,6 +52,7 @@ public class ProductDTO {
         this.id = id;
     }
 
+    @NotEmpty(message = "Title must not be empty")
     public String getTitle() {
         return title;
     }

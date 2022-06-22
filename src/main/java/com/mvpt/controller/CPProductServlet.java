@@ -7,6 +7,7 @@ import com.mvpt.dto.ProductMapper;
 import com.mvpt.model.Product;
 import com.mvpt.services.IProductService;
 import com.mvpt.services.ProductService;
+import com.mvpt.utils.UploadFile;
 import com.mvpt.utils.UploadImage;
 
 import javax.servlet.RequestDispatcher;
@@ -110,12 +111,10 @@ public class CPProductServlet extends HttpServlet {
 
         switch (action) {
             case "create":
-                imageName = UploadImage.uploadImages(req, resp);
-                addProduct(req, resp, imageName, sessionEmail);
+                addProduct(req, resp, sessionEmail);
                 break;
             case "edit":
-                imageName = UploadImage.uploadImages(req, resp);
-                editProduct(req, resp, imageName, sessionEmail);
+                editProduct(req, resp, sessionEmail);
                 break;
         }
 
@@ -146,7 +145,7 @@ public class CPProductServlet extends HttpServlet {
         dispatcher.forward(req, resp);
     }
 
-    private void editProduct(HttpServletRequest req, HttpServletResponse resp, String imageName, String emailSession) throws ServletException, IOException {
+    private void editProduct(HttpServletRequest req, HttpServletResponse resp, String emailSession) throws ServletException, IOException {
         Product product = null;
         ProductDTO productDTO = null;
         List<String> errors = new ArrayList<>();
@@ -155,7 +154,7 @@ public class CPProductServlet extends HttpServlet {
         try {
             Integer id = Integer.parseInt(req.getParameter("id").trim());
             String title = req.getParameter("title").trim();
-            String image = imageName.trim();
+            String image = UploadFile.uploadImagesServer(req);
             String updatedBy = emailSession.trim();
             String content = req.getParameter("content").trim();
 
@@ -207,14 +206,14 @@ public class CPProductServlet extends HttpServlet {
         }
     }
 
-    private void addProduct(HttpServletRequest req, HttpServletResponse resp, String imageName, String emailSession) throws ServletException, IOException {
+    private void addProduct(HttpServletRequest req, HttpServletResponse resp, String emailSession) throws ServletException, IOException {
         ProductDTO productDTO = null;
         List<String> errors = new ArrayList<>();
         RequestDispatcher dispatcher = req.getRequestDispatcher("/cp/product/create.jsp");
 
         try {
             String title = req.getParameter("title").trim();
-            String image = imageName.trim();
+            String image = UploadFile.uploadImagesServer(req);
             String createdBy = emailSession.trim();
             String content = req.getParameter("content").trim();
 
