@@ -1,5 +1,7 @@
 package com.mvpt.model;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class Product {
@@ -33,6 +35,13 @@ public class Product {
         this.content = content;
     }
 
+    public Product(Integer id, String title, String image, String content) {
+        this.id = id;
+        this.title = title;
+        this.image = image;
+        this.content = content;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -41,14 +50,18 @@ public class Product {
         this.id = id;
     }
 
+    @NotEmpty(message = "Title must not be empty")
+
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
 
+    @NotEmpty(message = "Image must not be empty")
+    @Pattern(regexp = "[a-z\\-_0-9\\/\\:\\.]*\\.(jpg|jpeg|png|gif)",
+            message = "Image needs to follow the correct image url pattern. Ex: 'img-1.png'")
     public String getImage() {
         return image;
     }

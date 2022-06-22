@@ -22,7 +22,7 @@ public class UploadImage {
                     part.write(getFolderUploadServer(req).getAbsolutePath() + File.separator + fileName);
                     part.write(getFolderUploadLocal().getAbsolutePath() + File.separator + fileName);
                 } else
-                    fileName = "avatar-1.jpg";
+                    fileName = "img-1.png";
                 fileName = new File(fileName).getName();
                 part.write(getFolderUploadServer(req).getAbsolutePath() + File.separator + fileName);
                 part.write(getFolderUploadLocal().getAbsolutePath() + File.separator + fileName);
@@ -46,7 +46,7 @@ public class UploadImage {
     }
 
     private static File getFolderUploadLocal() {
-        String urlImages = "D:\\codegym\\code gym\\Module 3\\caseStudy\\dasboard\\src\\main\\webapp\\assets\\images\\users";
+        String urlImages = "\\Users\\macbookair\\Desktop\\Codegym\\Module3\\CS3\\Cs3-2HandShop-Inventory\\src\\main\\webapp\\assets\\images\\products";
 //        System.out.println(urlImages);
         //File folderUpload = new File(System.getProperty("user.home") + "/Uploads");
         File folderUpload = new File(urlImages);

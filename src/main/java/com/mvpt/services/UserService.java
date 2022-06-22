@@ -45,7 +45,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserDTO adminLogin(String username, String password) {
-        User user = userDao.login(username, password, Role.ADMIN);
+        User user = userDao.login(username, password);
         if (user == null)
             throw new NotFoundException(Constant.AUTHORIZED_DENINED);
         return userMapper.toDTO(user);

@@ -25,13 +25,13 @@ public class ProductDAO implements IProductDAO {
     }
 
 
-    private static final String VIEW_ALL_PRODUCTS = "{SELECT * FROM vw_products}";
+    private static final String VIEW_ALL_PRODUCTS = "SELECT * FROM vw_products";
 
     private static final String SP_INSERT_PRODUCT = "{CALL sp_insert_product(?, ?, ?, ?)}";
 
     private static final String SP_UPDATE_PRODUCT = "{CALL sp_update_product(?, ?, ?, ?, ?)}";
 
-    private static final String SP_SELECT_PRODUCT_BY_ID = "{CALL sp_select_product_by_id(?)";
+    private static final String SP_SELECT_PRODUCT_BY_ID = "{CALL sp_select_product_by_id(?)}";
 
     private static final String SEARCH_PRODUCT = "{CALL sp_search_product(?)}";
 
@@ -47,7 +47,6 @@ public class ProductDAO implements IProductDAO {
              ){
 
             ResultSet rs = statement.executeQuery();
-
             while (rs.next()) {
                 Integer id = rs.getInt("id");
                 String title = rs.getString("title") ;
@@ -126,6 +125,7 @@ public class ProductDAO implements IProductDAO {
 
 
                 product = new ProductDTO (id, title, image, createdAt, createdBy, updatedAt, updatedBy, content);
+                System.out.println(product);
             }
 
         } catch (SQLException ex) {

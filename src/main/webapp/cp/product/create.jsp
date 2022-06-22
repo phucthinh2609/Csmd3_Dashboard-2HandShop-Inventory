@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,8 +55,8 @@
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
-                                    <li class="breadcrumb-item active">Dashboard</li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Product</a></li>
+                                    <li class="breadcrumb-item active">Create</li>
                                 </ol>
                             </div>
 
@@ -66,77 +67,78 @@
 
                 <div class="row">
                     <div class="col-12">
+                        <%--insert image--%>
                         <div class="card">
                             <div class="card-body">
 
                                 <h4 class="card-title">Basic Information</h4>
                                 <p class="card-title-desc">Fill all information below</p>
 
-                                <form>
+                                <form method="post" class="dropzone" enctype="multipart/form-data">
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-7">
                                             <div class="form-group">
                                                 <label for="productname">Product Name</label>
-                                                <input id="productname" name="productname" type="text"
+                                                <input id="productname" name="title" type="text"
                                                        class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="sku">SKU</label>
-                                                <input id="sku" name="sku" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-7 mb-4">
                                             <div class="form-group">
                                                 <label for="productdesc">Product Description</label>
-                                                <textarea class="form-control" id="productdesc" rows="5"></textarea>
+                                                <textarea class="form-control" name="content" id="productdesc"
+                                                          rows="5"></textarea>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-12">
 
-                                        </div>
+                                    </div>
+
+                                    <h5 class="card-title mb-3">Product Images</h5>
+
+
+                                    <div class="fallback mb-5">
+                                        <input name="file" id="file" type="file" multiple="">
                                     </div>
 
                                     <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Save
                                         Changes
                                     </button>
-                                    <button type="submit" class="btn btn-secondary waves-effect">Cancel</button>
                                 </form>
-
                             </div>
-                            <%--insert image--%>
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-3">Product Images</h4>
-
-                                    <form action="/" method="post" class="dropzone">
-                                        <div class="fallback">
-                                            <input name="file" type="file" multiple="">
-                                        </div>
-
-                                        <div class="dz-message needsclick">
-                                            <div class="mb-3">
-                                                <i class="display-4 text-muted bx bxs-cloud-upload"></i>
-                                            </div>
-
-                                            <h4>Drop files here or click to upload.</h4>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div> <!-- end card-->
+                        </div>
                     </div>
                 </div>
                 <!-- end row -->
+                <!-- start alert success or fail -->
+                <div>
+                    <c:if test="${requestScope['success'] == true}">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="mdi mdi-check-all mr-2"></i>
+                            Create product successful
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    </c:if>
+                    <c:if test="${requestScope['success'] == false}">
+                        <c:forEach items="${requestScope['errors']}" var="error">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="mdi mdi-block-helper mr-2"></i>
+                                    ${error}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        </c:forEach>
+                    </c:if>
+                </div>
+                <!-- end alert success or fail -->
 
             </div>
             <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
-
-        <%@include file="/cp/layout/footer.jsp" %>
     </div>
     <!-- end main content-->
 

@@ -90,4 +90,18 @@ public class ProductDTO {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "ProductDTO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", image='" + image + '\'' +
+                ", createdAt=" + createdAt +
+                ", createdBy='" + createdBy + '\'' +
+                ", updatedAt=" + updatedAt +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

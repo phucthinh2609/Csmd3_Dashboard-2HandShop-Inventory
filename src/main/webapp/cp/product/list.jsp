@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -17,88 +18,107 @@
 
 <body data-sidebar="dark">
 
-    <!-- Begin page -->
-    <div id="layout-wrapper">
+<!-- Begin page -->
+<div id="layout-wrapper">
 
-        <%@include file="/cp/layout/page-topbar.jsp"%>
-        <div class="vertical-menu">
+    <%@include file="/cp/layout/page-topbar.jsp" %>
+    <div class="vertical-menu">
 
-            <div data-simplebar="" class="h-100">
+        <div data-simplebar="" class="h-100">
 
-                <!--- Sidemenu -->
-                <%@include file="/cp/layout/sidebar-menu.jsp"%>
-                <!-- Sidebar -->
-            </div>
+            <!--- Sidemenu -->
+            <%@include file="/cp/layout/sidebar-menu.jsp" %>
+            <!-- Sidebar -->
         </div>
-        <!-- Left Sidebar End -->
+    </div>
+    <!-- Left Sidebar End -->
 
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        <div class="main-content">
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
 
-            <div class="page-content">
-                <div class="container-fluid">
+        <div class="page-content">
+            <div class="container-fluid">
 
-                    <!-- start page title -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">Products List</h4>
+                <%--                start page title--%>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-flex align-items-center justify-content-between">
+                            <h4 class="mb-0 font-size-18">List of Products</h4>
 
-                                <div class="page-title-right">
-                                    <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
-                                        <li class="breadcrumb-item active">Dashboard</li>
-                                    </ol>
-                                </div>
-
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Product</a></li>
+                                    <li class="breadcrumb-item active">List</li>
+                                </ol>
                             </div>
+
                         </div>
                     </div>
-                    <!-- end page title -->
+                </div>
+                <%--            end page title -->--%>
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row mb-2">
-                                        <div class="col-sm-4">
-                                            <div class="search-box mr-2 mb-2 d-inline-block">
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Search...">
-                                                    <i class="bx bx-search-alt search-icon"></i>
-                                                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row mb-2">
+                                    <div class="col-sm-4">
+                                        <div class="search-box mr-2 mb-2 d-inline-block">
+                                            <div class="position-relative">
+                                                <form>
+                                                    <div class="row">
+
+                                                        <div class="col-sm-7">
+                                                            <input type="text" name="search" value=""
+                                                                   class="form-control mb-3" placeholder="Search...">
+                                                            <i class="bx bx-search-alt search-icon"></i>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button type="submit"
+                                                                    class="btn btn-outline-primary mr-1 waves-effect waves-light">
+                                                                Search
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                        <div class="col-sm-8">
-                                            <div class="text-sm-right">
-                                                <button type="button" class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Product</button>
-                                            </div>
-                                        </div><!-- end col-->
                                     </div>
+                                    <div class="col-sm-8">
+                                        <div class="text-sm-right">
+                                            <button type="button"
+                                                    class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2">
+                                                <a href="products?action=create" class="text-white"><i
+                                                        class="mdi mdi-plus mr-1"></i> Add New Product</a></button>
+                                        </div>
+                                    </div><!-- end col-->
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="datatable" class="table table-centered table-nowrap table-hover"
+                                           role="grid" aria-describedby="datatable_info">
+                                        <%--                                            --%>
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th style="width: 20px;">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                    <label class="custom-control-label" for="customCheck1">&nbsp;</label>
+                                                </div>
+                                            </th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Image</th>
+                                            <th scope="col">Created At</th>
+                                            <th scope="col">Created By</th>
+                                            <th scope="col">Updated At</th>
+                                            <th scope="col">Updated By</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <c:forEach items="${products}" var="product">
 
-                                    <div class="table-responsive">
-                                        <table class="table table-centered table-nowrap">
-                                            <thead class="thead-light">
-                                            <tr>
-                                                <th style="width: 20px;">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                        <label class="custom-control-label" for="customCheck1">&nbsp;</label>
-                                                    </div>
-                                                </th>
-                                                <th>Product ID</th>
-                                                <th>Billing Name</th>
-                                                <th>Date</th>
-                                                <th>Total</th>
-                                                <th>Payment Status</th>
-                                                <th>Payment Method</th>
-                                                <th>View Details</th>
-                                                <th>Action</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
                                             <tr>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
@@ -106,108 +126,71 @@
                                                         <label class="custom-control-label" for="customCheck2">&nbsp;</label>
                                                     </div>
                                                 </td>
-                                                <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2540</a> </td>
-                                                <td>Neal Matthews</td>
                                                 <td>
-                                                    07 Oct, 2019
+                                                    <h5 class="font-size-14 mb-1"><a href="/products?action=edit&id=${product.getId()}" class="text-dark">${product.getTitle()}</a>
+                                                    </h5>
                                                 </td>
+                                                <td><img src="/assets/images/products/${product.getImage()}" width="50px" height="50px"
+                                                          alt=""></td>
+                                                <td>${product.getCreatedAt()}</td>
+                                                <td>${product.getCreatedBy()}</td>
+                                                <td>${product.getUpdatedAt()}</td>
+                                                <td>${product.getUpdatedBy()}</td>
                                                 <td>
-                                                    $400
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-pill badge-soft-success font-size-12">Paid</span>
-                                                </td>
-                                                <td>
-                                                    <i class="fab fa-cc-mastercard mr-1"></i> Mastercard
-                                                </td>
-                                                <td>
-                                                    <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target=".exampleModal">
-                                                        View Details
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                    <a href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
+                                                    <ul class="list-inline font-size-20 contact-links mb-0">
+                                                        <li class="list-inline-item px-2">
+                                                            <a href="/products?action=edit&id=${product.getId()}"
+                                                               data-toggle="tooltip" data-placement="top"
+                                                               title="Edit"><i class="bx bx-task"></i></a>
+                                                        </li>
+                                                    </ul>
                                                 </td>
                                             </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                                        <label class="custom-control-label" for="customCheck3">&nbsp;</label>
-                                                    </div>
-                                                </td>
-                                                <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2541</a> </td>
-                                                <td>Jamal Burnett</td>
-                                                <td>
-                                                    07 Oct, 2019
-                                                </td>
-                                                <td>
-                                                    $380
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-pill badge-soft-danger font-size-12">Chargeback</span>
-                                                </td>
-                                                <td>
-                                                    <i class="fab fa-cc-visa mr-1"></i> Visa
-                                                </td>
-                                                <td>
-                                                    <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target=".exampleModal">
-                                                        View Details
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                    <a href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
-                                                </td>
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <ul class="pagination pagination-rounded justify-content-end mb-2">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                                                <i class="mdi mdi-chevron-left"></i>
-                                            </a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="javascript: void(0);">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="javascript: void(0);">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="javascript: void(0);">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="javascript: void(0);">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="javascript: void(0);">5</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript: void(0);" aria-label="Next">
-                                                <i class="mdi mdi-chevron-right"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- end row -->
                 </div>
-                <!-- container-fluid -->
+                <!-- end row -->
             </div>
-            <!-- End Page-content -->
-
-            <%@include file="/cp/layout/footer.jsp"%>
+            <!-- container-fluid -->
         </div>
-        <!-- end main content-->
+        <!-- End Page-content -->
 
+        <%@include file="/cp/layout/footer.jsp" %>
     </div>
-    <!-- END layout-wrapper -->
+    <!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
 
 
-    <!-- JAVASCRIPT -->
-    <%@include file="/cp/script/javascript.jsp"%>
+<!-- JAVASCRIPT -->
+<%@include file="/cp/script/javascript.jsp" %>
 
-    <!-- App js -->
-    <%@include file="/cp/script/app-js.jsp"%>
+<!-- Required datatable js -->
+<%@include file="/cp/script/required-datatable-js.jsp" %>
+
+<!-- Buttons examples -->
+<%@include file="/cp/script/buttons-examples.jsp" %>
+
+<!-- Responsive examples -->
+<%@include file="/cp/script/responsive-examples.jsp" %>
+
+<!-- Datatable init js -->
+<%@include file="/cp/script/datatable-init-js.jsp" %>
+
+<!-- App js -->
+<%@include file="/cp/script/app-js.jsp" %>
+
+<script>
+    $( document ).ready(function() {
+        document.querySelector(".dataTables_filter").style.display = 'none';
+    });
+</script>
 </body>
 
 </html>

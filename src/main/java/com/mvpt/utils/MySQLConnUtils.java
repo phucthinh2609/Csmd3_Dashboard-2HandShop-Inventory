@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class MySQLConnUtils {
 
-    static String jdbcURL = "jdbc:mysql://localhost:3306/cs3?useSSL=false";
+    static String jdbcURL = "jdbc:mysql://localhost:3306/cs3?useSSL=false&allowPublicKeyRetrieval=true";
     static String jdbcUsername = "root";
     static String jdbcPassword = "Thinh01205032051";
 

@@ -12,7 +12,7 @@
 </head>
 <body>
 <script>
-    location.href = "/cp";
+    location.href = "/login";
 </script>
 </body>
 </html>

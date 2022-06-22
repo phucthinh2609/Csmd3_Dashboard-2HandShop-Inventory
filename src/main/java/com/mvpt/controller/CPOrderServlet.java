@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -17,22 +18,28 @@ public class CPOrderServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        String action = req.getParameter("action");
-        if (action == null)
-            action = "";
+        HttpSession session = req.getSession();
 
-        switch (action) {
-            case "create-purchase":
-                showCreatePurchaseOrderForm(req, resp);
-                break;
-            case "create-sales":
-                showCreateSalesOrderForm(req, resp);
-                break;
-            default:
-                showOrderListForm(req, resp);
-                break;
+        if (session.getAttribute("username") == null) {
+            resp.sendRedirect("/login");
         }
+        else {
+            String action = req.getParameter("action");
+            if (action == null)
+                action = "";
 
+            switch (action) {
+                case "create-purchase":
+                    showCreatePurchaseOrderForm(req, resp);
+                    break;
+                case "create-sales":
+                    showCreateSalesOrderForm(req, resp);
+                    break;
+                default:
+                    showOrderListForm(req, resp);
+                    break;
+            }
+        }
     }
 
     private void showCreatePurchaseOrderForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

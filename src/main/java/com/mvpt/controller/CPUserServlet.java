@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -35,22 +36,32 @@ public class CPUserServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        String action = req.getParameter("action");
+        HttpSession session = req.getSession();
 
-        if (action == null)
-            action = "";
 
-        switch (action) {
-            case "create":
-                showCreateUserForm(req, resp);
-                break;
-            case "edit":
-                showEditUserForm(req, resp);
-                break;
-            default:
-                listUsers(req, resp);
-                break;
+        if (session.getAttribute("username") == null) {
+            resp.sendRedirect("/login");
         }
+        else {
+            String action = req.getParameter("action");
+
+            if (action == null)
+                action = "";
+
+            switch (action) {
+                case "create":
+                    showCreateUserForm(req, resp);
+                    break;
+                case "edit":
+                    showEditUserForm(req, resp);
+                    break;
+                default:
+                    listUsers(req, resp);
+                    break;
+            }
+        }
+
+
     }
 
 
@@ -228,6 +239,7 @@ public class CPUserServlet extends HttpServlet {
         if (!search.isEmpty()) {
             users = userService.searchUser(search);
             req.setAttribute("users", users);
+
         }else {
             userDTOs = userService.findAll();
             req.setAttribute("users", userDTOs);

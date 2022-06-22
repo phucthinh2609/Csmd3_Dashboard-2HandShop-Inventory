@@ -118,16 +118,6 @@
                                         </thead>
                                         <tbody>
                                         <c:forEach items="${users}" var="user">
-                                            <%--                                                <tr>--%>
-                                            <%--                                                    <th scope="col" style="width: 70px;">#</th>--%>
-                                            <%--                                                    <th scope="col">${user.getFullName()}</th>--%>
-                                            <%--                                                    <th scope="col">${user.getMobile()}<</th>--%>
-                                            <%--                                                    <th scope="col">${user.getEmail()}<</th>--%>
-                                            <%--                                                    <th scope="col">${user.getRole()}<</th>--%>
-                                            <%--                                                    <th scope="col">${user.getStatus()}<</th>--%>
-                                            <%--                                                    <th scope="col">Action</th>--%>
-                                            <%--                                                </tr>--%>
-
                                             <tr>
                                                 <td>
                                                     <div class="avatar-xs">
@@ -137,8 +127,10 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <h5 class="font-size-14 mb-1"><a href="#"
-                                                                                     class="text-dark">${user.getFullName()}</a>
+                                                    <h5 class="font-size-14 mb-1">
+                                                        <a href="#" class="text-dark">
+                                                            ${user.getFullName()}
+                                                        </a>
                                                     </h5>
                                                 </td>
                                                 <td>${user.getEmail()}</td>

@@ -9,7 +9,7 @@ import java.util.List;
 public interface IUserDAO {
     List<User> selectAll();
 
-    User login(String username, String password, Role role);
+    User login(String username, String password);
 
     void insert(UserDTO newUser);
 
@@ -17,7 +17,11 @@ public interface IUserDAO {
 
     User selectById(Integer id);
 
+    User selectByEmail(String email);
+
     boolean existsByEmail(String email);
+
+    boolean existsByPassword(String password);
 
     boolean existsByPhone(String phone);
 

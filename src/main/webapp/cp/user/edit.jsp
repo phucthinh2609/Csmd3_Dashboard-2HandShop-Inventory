@@ -79,26 +79,31 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="fullName">Full Name</label>
-                                                <input id="fullName" name="fullName" type="text" class="form-control" value="${user.getFullName()}">
+                                                <input id="fullName" name="fullName" type="text" class="form-control"
+                                                       value="${user.getFullName()}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="mobile">Mobile</label>
-                                                <input id="mobile" name="mobile" type="text" class="form-control" value="${user.getMobile()}">
+                                                <input id="mobile" name="mobile" type="text" class="form-control"
+                                                       value="${user.getMobile()}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input id="email" name="email" type="email" class="form-control" value="${user.getEmail()}">
+                                                <input id="email" name="email" type="email" class="form-control"
+                                                       value="${user.getEmail()}">
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">Status</label>
                                                 <select name="status" class="custom-select">
                                                     <c:if test='${user.getStatus() == "ACTIVE"}'>
-                                                        <option name="status" value="ACTIVE" selected="ACTIVE">ACTIVE</option>
+                                                        <option name="status" value="ACTIVE" selected="ACTIVE">ACTIVE
+                                                        </option>
                                                         <option name="status" value="BLOCK">BLOCK</option>
                                                     </c:if>
                                                     <c:if test='${user.getStatus() == "BLOCK"}'>
-                                                        <option name="status" value="ACTIVE" >ACTIVE</option>
-                                                        <option name="status" value="BLOCK" selected="BLOCK">BLOCK</option>
+                                                        <option name="status" value="ACTIVE">ACTIVE</option>
+                                                        <option name="status" value="BLOCK" selected="BLOCK">BLOCK
+                                                        </option>
                                                     </c:if>
                                                 </select>
                                             </div>
@@ -124,25 +129,29 @@
                                             <div class="form-group">
                                                 <div class="form-group">
                                                     <label for="address">Address</label>
-                                                    <input id="address" name="address" type="text" class="form-control" value="${user.getAddress()}">
+                                                    <input id="address" name="address" type="text" class="form-control"
+                                                           value="${user.getAddress()}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">Role</label>
                                                 <select name="role" class="custom-select">
                                                     <c:if test='${user.getRole() == "ADMIN"}'>
-                                                        <option name="role" value="ADMIN" selected="ADMIN">ADMIN</option>
+                                                        <option name="role" value="ADMIN" selected="ADMIN">ADMIN
+                                                        </option>
                                                         <option name="role" value="USER">USER</option>
 
                                                     </c:if>
                                                     <c:if test='${user.getRole() == "USER"}'>
-                                                        <option name="role" value="ADMIN" >ADMIN</option>
+                                                        <option name="role" value="ADMIN">ADMIN</option>
                                                         <option name="role" value="USER" selected="USER">USER</option>
                                                     </c:if>
                                                 </select>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Save changes</button>
+                                        <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Save
+                                            changes
+                                        </button>
                                     </div>
                                 </form>
                             </div>
@@ -150,25 +159,35 @@
                     </div>
                 </div>
                 <!-- end row -->
+                <!-- start alert success or fail -->
+                <div>
+                    <c:if test="${requestScope['success'] == true}">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="mdi mdi-check-all mr-2"></i>
+                            Edit user "${user.getFullName()}" successful
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    </c:if>
+                    <c:if test="${requestScope['success'] == false}">
+                        <c:forEach items="${requestScope['errors']}" var="error">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="mdi mdi-block-helper mr-2"></i>
+                                    ${error}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        </c:forEach>
+                    </c:if>
+                </div>
+                <!-- end alert success or fail -->
             </div>
             <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
 
-        <div class="footerr">
-            <c:if test="${requestScope['success'] == true}">
-                <ul class="success">
-                    <li>Edit user '${user.getFullName()}' successful</li>
-                </ul>
-            </c:if>
-            <c:if test="${requestScope['success'] == false}">
-                <ul class="error">
-                    <c:forEach items="${requestScope['errors']}" var="error">
-                        <li>${error}</li>
-                    </c:forEach>
-                </ul>
-            </c:if>
-        </div>
     </div>
     <!-- end main content-->
 </div>

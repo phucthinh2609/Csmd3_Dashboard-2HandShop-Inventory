@@ -12,7 +12,7 @@ import java.util.Date;
 
 import static com.mvpt.utils.MySQLConnUtils.getConnection;
 
-public class UserDAO implements IUserDAO {
+public class  UserDAO implements IUserDAO {
     //Singleton Design Pattern
     private static UserDAO instance;
 
@@ -29,12 +29,17 @@ public class UserDAO implements IUserDAO {
     private String USER_EXISTS_BY_PHONE = "" +
             "SELECT COUNT(*) AS count " +
             "FROM users AS u " +
-            "WHERE u.mobile = ?;";
+            "WHERE u.mobile LIKE BINARY ?;";
 
     private String USER_EXISTS_BY_EMAIL = "" +
             "SELECT COUNT(*) AS count " +
             "FROM users AS u " +
-            "WHERE u.email = ?;";
+            "WHERE u.email LIKE BINARY ?;";
+
+    private String USER_EXISTS_BY_PASSWORD = "" +
+            "SELECT COUNT(*) AS count " +
+            "FROM users AS u " +
+            "WHERE u.password LIKE BINARY ?;";
 
     private static final String SELECT_ALL_USERS = "" +
             "SELECT " +
@@ -56,6 +61,8 @@ public class UserDAO implements IUserDAO {
     private static final String SP_UPDATE_USER = "{CALL sp_update_user(?, ?, ?, ?, ?, ?, ?, ?)}";
 
     private static final String SP_SELECT_USER_BY_ID = "{CALL sp_select_user_by_id(?)}";
+
+    private static final String SP_SELECT_USER_BY_EMAIL = "{CALL cs3.sp_select_user_by_email(?)}";
 
     private static final String SEARCH_USER = "{CALL sp_search_user(?)}";
 
@@ -103,8 +110,14 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public User login(String username, String password, Role role) {
+    public User login(String username, String password) {
+        User user = null;
 
+        if (existsByEmail(username)){
+            user = selectByEmail(username);
+            if (user.getPassword().equals(password))
+                return user;
+        }
         return null;
     }
 
@@ -186,6 +199,39 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
+    public User selectByEmail(String email) {
+        User user = null;
+
+        try (
+                Connection conn = getConnection();
+                CallableStatement statement = conn.prepareCall(SP_SELECT_USER_BY_EMAIL);
+        ) {
+            statement.setString(1, email);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Integer id = rs.getInt("id");
+                String fullName = rs.getString("full_name");
+                String mobile = rs.getString("mobile");
+                String password = rs.getString("password");
+                String address = rs.getString("address");
+                Role role = Role.parseRole(rs.getString("role"));
+                Date createdAt = rs.getDate("created_at");
+                Date updatedAt = rs.getDate("updated_at");
+                Date lastLogin = rs.getDate("last_login");
+                UserStatus status = UserStatus.parseUserStatus(rs.getString("status"));
+
+                user = new User(id, fullName, mobile, email, password, address, role, createdAt, updatedAt, lastLogin, status);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return user;
+    }
+
+    @Override
     public boolean existsByEmail(String email) {
         boolean exist = false;
 
@@ -197,6 +243,34 @@ public class UserDAO implements IUserDAO {
             statement.setString(1, email);
 
             ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                int count = rs.getInt("count");
+
+                if (count > 0) {
+                    exist = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return exist;
+    }
+
+    @Override
+    public boolean existsByPassword(String password) {
+        boolean exist = false;
+
+        try {
+            Connection conn = MySQLConnUtils.getConnection();
+
+            PreparedStatement statement = conn.prepareStatement(USER_EXISTS_BY_PASSWORD);
+
+            statement.setString(1, password);
+
+            ResultSet rs = statement.executeQuery();
+
+            System.out.println(this.getClass() + " " + statement);
 
             while (rs.next()) {
                 int count = rs.getInt("count");
