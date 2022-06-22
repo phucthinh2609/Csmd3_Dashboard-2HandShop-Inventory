@@ -29,13 +29,26 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html/charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
+        loginUser(req, resp);
+
+    }
+
+    private void doSession(HttpServletRequest req, HttpServletResponse resp, UserDTO userDTO) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        session.setAttribute("username", userDTO.getEmail());
+
+        resp.sendRedirect("/cp");
+    }
+
+    private void loginUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> errors = new ArrayList<>();
         RequestDispatcher dispatcher = req.getRequestDispatcher("/cp/login/login.jsp");
         String username = "";
         String password = "";
-        resp.setContentType("text/html/charset=UTF-8");
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
 
         try {
             username = req.getParameter("username");
@@ -43,12 +56,8 @@ public class LoginServlet extends HttpServlet {
             UserDTO userDTO = userService.adminLogin(username, password);
 
             if (userDTO != null) {
-                HttpSession session = req.getSession();
-                session.setAttribute("username", userDTO.getEmail());
-
-                resp.sendRedirect("/cp");
-            }
-            else {
+                doSession(req, resp, userDTO);
+            } else {
                 errors.add("User or password incorrect");
                 req.setAttribute("username", username);
                 req.setAttribute("password", password);
@@ -66,19 +75,5 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("errors", errors);
             dispatcher.forward(req, resp);
         }
-    }
-
-    protected void CreatCookie(HttpServletRequest req, HttpServletResponse resp, String _username, String _password) {
-
-        Cookie username = new Cookie("username", _username);
-        Cookie password = new Cookie("password", _password);
-
-        username.setMaxAge(60 * 60 * 24);
-        password.setMaxAge(60 * 60 * 24);
-
-        resp.addCookie(username);
-        resp.addCookie(password);
-
-
     }
 }

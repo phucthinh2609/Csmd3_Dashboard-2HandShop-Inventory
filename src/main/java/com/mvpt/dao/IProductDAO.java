@@ -1,18 +1,19 @@
 package com.mvpt.dao;
 
 import com.mvpt.dto.ProductDTO;
-import com.mvpt.model.Product;
 
 import java.util.List;
 
 public interface IProductDAO {
     List<ProductDTO> selectAll();
 
-    void insert(Product newProduct);
+    void insert(ProductDTO newProductDTO);
 
-    void update(Product newProduct);
+    void update(ProductDTO newProductDTO);
 
     ProductDTO selectById(Integer id);
+
+    Integer getUserIdByEmail(String email);
 
     boolean existById(Integer id);
 

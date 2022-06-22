@@ -6,7 +6,6 @@ import com.mvpt.dao.IProductDAO;
 import com.mvpt.dao.ProductDAO;
 import com.mvpt.dto.ProductDTO;
 import com.mvpt.exceptions.NotFoundException;
-import com.mvpt.model.Product;
 
 import java.util.Date;
 import java.util.List;
@@ -33,15 +32,15 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void add(Product newProduct) {
-        newProduct.setCreatedAt(new Date());
-        productDAO.insert(newProduct);
+    public void add(ProductDTO newProductDTO) {
+        newProductDTO.setCreatedAt(new Date());
+        productDAO.insert(newProductDTO);
     }
 
     @Override
-    public void update(Product newProduct) {
-        newProduct.setUpdatedAt(new Date());
-        productDAO.update(newProduct);
+    public void update(ProductDTO newProductDTO) {
+        newProductDTO.setUpdatedAt(new Date());
+        productDAO.update(newProductDTO);
     }
 
     @Override

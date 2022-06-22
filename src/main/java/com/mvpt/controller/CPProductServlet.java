@@ -1,12 +1,10 @@
 package com.mvpt.controller;
 
+import com.mvpt.dao.IProductDAO;
+import com.mvpt.dao.ProductDAO;
 import com.mvpt.dto.ProductDTO;
 import com.mvpt.dto.ProductMapper;
-import com.mvpt.dto.UserDTO;
 import com.mvpt.model.Product;
-import com.mvpt.model.Role;
-import com.mvpt.model.User;
-import com.mvpt.model.UserStatus;
 import com.mvpt.services.IProductService;
 import com.mvpt.services.ProductService;
 import com.mvpt.utils.UploadImage;
@@ -19,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sound.sampled.Port;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -37,6 +34,7 @@ public class CPProductServlet extends HttpServlet {
     IProductService productService = ProductService.getInstance();
     ProductMapper productMapper = ProductMapper.getInstance();
 
+
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -52,9 +50,6 @@ public class CPProductServlet extends HttpServlet {
         }
         else {
             String action = req.getParameter("action");
-
-            String userName = (String) session.getAttribute("user");
-            System.out.println(userName);
 
             if (action == null)
                 action = "";
@@ -104,6 +99,9 @@ public class CPProductServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
+        HttpSession session = req.getSession();
+        String sessionEmail = (String) session.getAttribute("username");
+
         String action = req.getParameter("action");
         String imageName = "";
 
@@ -113,11 +111,11 @@ public class CPProductServlet extends HttpServlet {
         switch (action) {
             case "create":
                 imageName = UploadImage.uploadImages(req, resp);
-                addProduct(req, resp, imageName);
+                addProduct(req, resp, imageName, sessionEmail);
                 break;
             case "edit":
                 imageName = UploadImage.uploadImages(req, resp);
-                editProduct(req, resp, imageName);
+                editProduct(req, resp, imageName, sessionEmail);
                 break;
         }
 
@@ -148,7 +146,7 @@ public class CPProductServlet extends HttpServlet {
         dispatcher.forward(req, resp);
     }
 
-    private void editProduct(HttpServletRequest req, HttpServletResponse resp, String imageName) throws ServletException, IOException {
+    private void editProduct(HttpServletRequest req, HttpServletResponse resp, String imageName, String emailSession) throws ServletException, IOException {
         Product product = null;
         ProductDTO productDTO = null;
         List<String> errors = new ArrayList<>();
@@ -158,16 +156,17 @@ public class CPProductServlet extends HttpServlet {
             Integer id = Integer.parseInt(req.getParameter("id").trim());
             String title = req.getParameter("title").trim();
             String image = imageName.trim();
+            String updatedBy = emailSession.trim();
             String content = req.getParameter("content").trim();
 
-            product = new Product(id, title, image, content);
+            productDTO = new ProductDTO(id, title, image, updatedBy, content);
 
             ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
             Validator validator = validatorFactory.getValidator();
-            Set<ConstraintViolation<Product>> constraintViolations = validator.validate(product);
+            Set<ConstraintViolation<ProductDTO>> constraintViolations = validator.validate(productDTO);
 
             if (!constraintViolations.isEmpty()) {
-                for (ConstraintViolation<Product> constraintViolation : constraintViolations) {
+                for (ConstraintViolation<ProductDTO> constraintViolation : constraintViolations) {
                     errors.add(constraintViolation.getMessage());
                 }
             }
@@ -182,9 +181,8 @@ public class CPProductServlet extends HttpServlet {
                 dispatcher.forward(req, resp);
 
             } else {
-                productService.update(product);
+                productService.update(productDTO);
 
-                productDTO = productMapper.toDTO(product);
                 productDTO = productService.findById(id);
                 System.out.println(productDTO);
                 req.setAttribute("product", productDTO);
@@ -209,24 +207,25 @@ public class CPProductServlet extends HttpServlet {
         }
     }
 
-    private void addProduct(HttpServletRequest req, HttpServletResponse resp, String imageName) throws ServletException, IOException {
-        Product product = null;
+    private void addProduct(HttpServletRequest req, HttpServletResponse resp, String imageName, String emailSession) throws ServletException, IOException {
+        ProductDTO productDTO = null;
         List<String> errors = new ArrayList<>();
         RequestDispatcher dispatcher = req.getRequestDispatcher("/cp/product/create.jsp");
 
         try {
             String title = req.getParameter("title").trim();
             String image = imageName.trim();
+            String createdBy = emailSession.trim();
             String content = req.getParameter("content").trim();
 
-            product = new Product(title, image, content);
+            productDTO = new ProductDTO(title, image, createdBy, content);
 
             //Check validate front-end
             ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
             Validator validator = validatorFactory.getValidator();
-            Set<ConstraintViolation<Product>> constraintViolations = validator.validate(product);
+            Set<ConstraintViolation<ProductDTO>> constraintViolations = validator.validate(productDTO);
             if (!constraintViolations.isEmpty()) {
-                for (ConstraintViolation<Product> constraintViolation : constraintViolations) {
+                for (ConstraintViolation<ProductDTO> constraintViolation : constraintViolations) {
                     errors.add(constraintViolation.getMessage());
                 }
             }
@@ -235,13 +234,13 @@ public class CPProductServlet extends HttpServlet {
             //Do add result
             if (!errors.isEmpty()) {
                 req.setAttribute("errors", errors);
-                req.setAttribute("product", product);
+                req.setAttribute("product", productDTO);
 
                 req.setAttribute("success", false);
                 dispatcher.forward(req, resp);
 
             } else {
-                productService.add(product);
+                productService.add(productDTO);
 
                 req.setAttribute("success", true);
 

@@ -62,7 +62,7 @@ public class  UserDAO implements IUserDAO {
 
     private static final String SP_SELECT_USER_BY_ID = "{CALL sp_select_user_by_id(?)}";
 
-    private static final String SP_SELECT_USER_BY_EMAIL = "{CALL cs3.sp_select_user_by_email(?)}";
+    private static final String SP_SELECT_USER_BY_EMAIL = "{CALL sp_select_user_by_email(?)}";
 
     private static final String SEARCH_USER = "{CALL sp_search_user(?)}";
 

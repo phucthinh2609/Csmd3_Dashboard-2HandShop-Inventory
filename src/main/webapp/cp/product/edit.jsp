@@ -114,7 +114,7 @@
                     <c:if test="${requestScope['success'] == true}">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <i class="mdi mdi-check-all mr-2"></i>
-                            Create product successful
+                            Updated ${product.getTitle()} successful
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>

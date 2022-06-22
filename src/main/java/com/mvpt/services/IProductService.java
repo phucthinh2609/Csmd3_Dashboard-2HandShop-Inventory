@@ -2,16 +2,15 @@ package com.mvpt.services;
 
 
 import com.mvpt.dto.ProductDTO;
-import com.mvpt.model.Product;
 
 import java.util.List;
 
 public interface IProductService {
     List<ProductDTO> findAll();
 
-    void add(Product newProduct);
+    void add(ProductDTO newProductDTO);
 
-    void update(Product newProduct);
+    void update(ProductDTO newProductDTO);
 
     boolean existById(Integer id);
 

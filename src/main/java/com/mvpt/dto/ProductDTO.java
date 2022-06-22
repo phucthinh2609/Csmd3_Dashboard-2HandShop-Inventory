@@ -27,6 +27,21 @@ public class ProductDTO {
         this.content = content;
     }
 
+    public ProductDTO(String title, String image, String createdBy, String content) {
+        this.title = title;
+        this.image = image;
+        this.createdBy = createdBy;
+        this.content = content;
+    }
+
+    public ProductDTO(Integer id, String title, String image, String updatedBy, String content) {
+        this.id = id;
+        this.title = title;
+        this.image = image;
+        this.updatedBy = updatedBy;
+        this.content = content;
+    }
+
     public Integer getId() {
         return id;
     }
