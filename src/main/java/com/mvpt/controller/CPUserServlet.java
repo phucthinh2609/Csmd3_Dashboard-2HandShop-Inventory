@@ -182,6 +182,9 @@ public class CPUserServlet extends HttpServlet {
             String originalEmail = userService.getOriginalEmail(id);
             String originalMobile = userService.getOriginalMobile(id);
 
+            if (role.equals(Role.ADMIN) && status.equals(UserStatus.BLOCK))
+                errors.add("Can't block on admin role ");
+
 
             if (isExistsByEmail) {
                 if (!originalEmail.equals(email))

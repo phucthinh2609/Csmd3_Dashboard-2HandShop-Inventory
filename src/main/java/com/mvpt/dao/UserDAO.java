@@ -115,7 +115,8 @@ public class  UserDAO implements IUserDAO {
 
         if (existsByEmail(username)){
             user = selectByEmail(username);
-            if (user.getPassword().equals(password))
+
+            if (user.getPassword().equals(password) && user.getRole().equals(Role.ADMIN))
                 return user;
         }
         return null;
