@@ -97,7 +97,7 @@
                                     <h5 class="card-title mb-3">Product Images</h5>
 
                                     <div class="fallback mb-5">
-                                        <input name="file" id="file" type="file" multiple="" accept="products/*">
+                                        <input name="file" id="file" type="file" multiple="" accept="products/*" value="${product.getImage()}">
                                     </div>
 
                                     <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Save
@@ -114,7 +114,7 @@
                     <c:if test="${requestScope['success'] == true}">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <i class="mdi mdi-check-all mr-2"></i>
-                            Updated ${product.getTitle()} successful
+                            Updated '${product.getTitle()}' successful
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
